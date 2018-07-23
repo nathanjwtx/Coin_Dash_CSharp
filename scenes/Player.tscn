@@ -39,7 +39,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 10, 11.2492 )
 
-[node name="Player" type="Area2D" index="0"]
+[node name="Player" type="Area2D"]
 
 scale = Vector2( 2, 2 )
 input_pickable = true
@@ -60,7 +60,7 @@ Speed = 50
 
 frames = SubResource( 1 )
 animation = "run"
-frame = 4
+frame = 5
 playing = true
 offset = Vector2( 0, -5 )
 

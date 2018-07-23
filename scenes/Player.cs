@@ -17,8 +17,6 @@ public class Player : Area2D
 
     public override void _Ready()
     {
-        // Called every time the node is added to the scene.
-        // Initialization here
         AniSprite = (AnimatedSprite) GetNode("AnimatedSprite");
     }
 
@@ -92,9 +90,10 @@ public class Player : Area2D
     private void _on_Player_area_entered(Godot.Object area)
     {
         Node2D d = (Node2D) area;
-        if (d != null && IsInGroup("coins"))
+        if (d != null && d.IsInGroup("coins"))
         {
-//            d.Pickup();
+            var c = d as Coin;
+            c.Pickup();
             EmitSignal("Pickup");
         }
 
@@ -105,4 +104,3 @@ public class Player : Area2D
 
     #endregion
 }
-
