@@ -7,12 +7,13 @@ public class Player : Area2D
     
     public Vector2 Velocity;
     public Vector2 Screensize = new Vector2(480, 720);
+    public AnimatedSprite AniSprite;
 
     public override void _Ready()
     {
         // Called every time the node is added to the scene.
         // Initialization here
-        
+        AniSprite = (AnimatedSprite) GetNode("AnimatedSprite");
     }
 
     public override void _Process(float delta)
@@ -23,19 +24,34 @@ public class Player : Area2D
         var pos = Position;
         pos.x = Mathf.Clamp(Position.x, 0, Screensize.x);
         pos.y = Mathf.Clamp(Position.y, 0, Screensize.y);
-        AnimatedSprite aniSprite = (AnimatedSprite) GetNode("AnimatedSprite");
+        
         
         if (Velocity.Length() > 0)
         {
-            aniSprite.Animation = "run";
-            aniSprite.FlipH = Velocity.x < 0;
+            AniSprite.Animation = "run";
+            AniSprite.FlipH = Velocity.x < 0;
         }
         else
         {
-            aniSprite.Animation = "idle";
+            AniSprite.Animation = "idle";
         }
     }
 
+    #region Gameplay Methods
+
+    public void Start(Vector2 pos)
+    {
+        SetProcess(true);
+        Position = pos;
+        AniSprite.Animation = "idle";
+    }
+
+    public void Die()
+    {
+        AniSprite.Animation = "hurt";
+        SetProcess(false);
+    }
+    
     public void GetInput()
     {
         Velocity = new Vector2();
@@ -63,5 +79,6 @@ public class Player : Area2D
         {
             Velocity = Velocity.Normalized() * Speed;
         }
-    } 
+    }
+    #endregion
 }
