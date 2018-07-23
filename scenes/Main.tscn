@@ -22,4 +22,6 @@ stretch_mode = 2
 
 [node name="Player" parent="." index="1" instance=ExtResource( 2 )]
 
+Speed = 100
+
 

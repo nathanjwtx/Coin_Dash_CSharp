@@ -3,6 +3,12 @@ using System;
 
 public class Player : Area2D
 {
+    [Signal]
+    delegate void Pickup();
+
+    [Signal]
+    delegate void Hurt();
+        
     [Export] public int Speed;
     
     public Vector2 Velocity;
@@ -81,4 +87,22 @@ public class Player : Area2D
         }
     }
     #endregion
+    
+    #region Signal Calls
+    private void _on_Player_area_entered(Godot.Object area)
+    {
+        Node2D d = (Node2D) area;
+        if (d != null && IsInGroup("coins"))
+        {
+//            d.Pickup();
+            EmitSignal("Pickup");
+        }
+
+        if (d == null || !IsInGroup("obstacles")) return;
+        EmitSignal("Hurt");
+        Die();
+    }
+
+    #endregion
 }
+
