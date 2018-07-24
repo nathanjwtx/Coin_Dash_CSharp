@@ -28,6 +28,7 @@ public class Player : Area2D
         var pos = Position;
         pos.x = Mathf.Clamp(Position.x, 0, Screensize.x);
         pos.y = Mathf.Clamp(Position.y, 0, Screensize.y);
+        Position = pos;
         
         
         if (Velocity.Length() > 0)
