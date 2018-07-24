@@ -30,6 +30,17 @@ public class Main : Node
         NewGame();
     }
 
+    public override void _Process(float delta)
+    {
+        base._Process(delta);
+        if (Playing && Coins.GetChildCount() == 0)
+        {
+            Level += 1;
+            Timeleft += 5;
+            SpawnCoins();
+        }
+    }
+
     public void NewGame()
     {
         Playing = true;
