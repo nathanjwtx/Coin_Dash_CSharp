@@ -8,7 +8,7 @@
 [node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
-Coin = ExtResource( 2 )
+CoinScene = ExtResource( 2 )
 Playtime = 30
 
 [node name="Background" type="TextureRect" parent="." index="0"]
@@ -33,6 +33,9 @@ Speed = 200
 [node name="CoinContainer" type="Node" parent="." index="2"]
 
 [node name="PlayerStart" type="Position2D" parent="." index="3"]
+
+position = Vector2( 240, 350 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="GameTimer" type="Timer" parent="." index="4"]
 

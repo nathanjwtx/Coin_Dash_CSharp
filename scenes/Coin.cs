@@ -16,6 +16,6 @@ public class Coin : Area2D
 
     public void Pickup()
     {
-        GD.Print("hello");
+        QueueFree();
     }
 }
