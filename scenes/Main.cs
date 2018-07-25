@@ -58,10 +58,12 @@ public class Main : Node
 
     public void SpawnCoins()
     {
+        AudioStreamPlayer a = (AudioStreamPlayer) GetNode("LevelSound");
         for (int i = 0; i < Level + 4; i++)
         {
             var c = (Coin) CoinScene.Instance();
             Coins.AddChild(c);
+            a.Play();
             c.GlobalPosition = new Vector2(Rand.Next(0, Convert.ToInt32(Screensize.x)), 
                 Rand.Next(0, Convert.ToInt32(Screensize.y)));
         }
@@ -75,6 +77,9 @@ public class Main : Node
         {
             coin.QueueFree();
         }
+
+        AudioStreamPlayer a = (AudioStreamPlayer) GetNode("EndSound");
+        a.Play();
         _HUD.ShowGameOver();
         _Player.Die();
     }
@@ -98,6 +103,8 @@ public class Main : Node
     private void _on_Player_Pickup()
     {
         Score += 1;
+        AudioStreamPlayer a = (AudioStreamPlayer) GetNode("CoinSound");
+        a.Play();
         _HUD.UpdateScore(Score);
     }
     
