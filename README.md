@@ -7,3 +7,5 @@ https://www.packtpub.com/game-development/godot-game-engine-projects
 
 _Github repo:_
 https://github.com/PacktPublishing/Godot-Game-Engine-Projects/releases
+
+See Github repo for artwork credits
