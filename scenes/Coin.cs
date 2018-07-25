@@ -28,6 +28,7 @@ public class Coin : Area2D
         _tween.Start();
     }
     
+    #region Signals
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
         QueueFree();
@@ -38,4 +39,17 @@ public class Coin : Area2D
         _sprite.Frame = 0;
         _sprite.Play();
     }
+    
+    private void _on_Coin_area_entered(Godot.Object area)
+    {
+        Node2D cactus = (Node2D) area;
+        if (cactus.Name == "Cactus")
+        {
+            var x = (int) ProjectSettings.GetSetting("display/window/size/width");
+            var y = (int) ProjectSettings.GetSetting("display/window/size/height");
+            var rand = new Random();
+            Position = new Vector2(rand.Next(0, x), rand.Next(0, y));
+        }
+    }
+    #endregion
 }

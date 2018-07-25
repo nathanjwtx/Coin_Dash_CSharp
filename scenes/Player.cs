@@ -103,6 +103,10 @@ public class Player : Area2D
             p.Pickup();
             EmitSignal("Pickup", "PowerUp");
         }
+        else if (d.Name == "Cactus")
+        {
+            EmitSignal("Hurt");
+        }
 
         if (d == null || !IsInGroup("obstacles")) return;
         EmitSignal("Hurt");

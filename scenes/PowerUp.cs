@@ -24,6 +24,7 @@ public class PowerUp : Area2D
         _tween.Start();
     }
     
+    #region Signals
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
         QueueFree();
@@ -31,13 +32,21 @@ public class PowerUp : Area2D
     
     private void _on_PowerUp_area_entered(Godot.Object area)
     {
-        
+        Node2D powerup = (Node2D) area;
+        if (powerup.Name == "PowerUp")
+        {
+            var x = (Int32) ProjectSettings.GetSetting("display/window/size/width");
+            var y = (Int32) ProjectSettings.GetSetting("display/window/size/height");
+            var rand = new Random();
+            Position = new Vector2(rand.Next(0, x), rand.Next(0, y));
+        }
     }
     
     private void _on_Timer_timeout()
     {
         QueueFree();
     }
+    #endregion
 }
 
 
