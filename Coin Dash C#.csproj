@@ -54,6 +54,7 @@
     <Compile Include="scenes\HUD.cs" />
     <Compile Include="scenes\Main.cs" />
     <Compile Include="scenes\Player.cs" />
+    <Compile Include="scenes\PowerUp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

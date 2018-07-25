@@ -1,11 +1,10 @@
 using Godot;
 using System;
 
-public class Coin : Area2D
+public class PowerUp : Area2D
 {
     private Tween _tween;
     private AnimatedSprite _sprite;
-    private Timer _animationTimer;
 
     public override void _Ready()
     {
@@ -17,9 +16,6 @@ public class Coin : Area2D
             Tween.TransitionType.Quad, Tween.EaseType.InOut);
         _tween.InterpolateProperty(_sprite, "modulate", cStart, cEnd, Convert.ToSingle(0.3),
             Tween.TransitionType.Quad, Tween.EaseType.InOut);
-        _animationTimer = (Timer) GetNode("Timer");
-        _animationTimer.WaitTime = new Random().Next(3, 9);
-        _animationTimer.Start();
     }
 
     public void Pickup()
@@ -33,9 +29,19 @@ public class Coin : Area2D
         QueueFree();
     }
     
+    private void _on_PowerUp_area_entered(Godot.Object area)
+    {
+        
+    }
+    
     private void _on_Timer_timeout()
     {
-        _sprite.Frame = 0;
-        _sprite.Play();
+        QueueFree();
     }
 }
+
+
+
+
+
+

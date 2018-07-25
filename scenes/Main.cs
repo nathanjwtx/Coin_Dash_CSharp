@@ -4,6 +4,7 @@ using System;
 public class Main : Node
 {
     [Export] public PackedScene CoinScene;
+    [Export] public PackedScene PowerUpScene;
     [Export] public int Playtime;
 
     public int Level;
@@ -16,6 +17,7 @@ public class Main : Node
     private HUD _HUD;
     private Position2D PlayerPosition;
     private Timer GameTimer;
+    private Timer PowerUpTimer;
     private Node Coins;
 
     public override void _Ready()
@@ -30,6 +32,7 @@ public class Main : Node
         _HUD.UpdateTimer(Timeleft);
         PlayerPosition = (Position2D) GetNode("PlayerStart");
         GameTimer = (Timer) GetNode("GameTimer");
+        PowerUpTimer = (Timer) GetNode("PowerUpTimer");
         Coins = GetNode("CoinContainer");
     }
 
@@ -41,9 +44,12 @@ public class Main : Node
             Level += 1;
             Timeleft += 5;
             SpawnCoins();
+            PowerUpTimer.WaitTime = Rand.Next(5, 10);
+            PowerUpTimer.Start();
         }
     }
 
+    #region Game Play
     public void NewGame()
     {
         Playing = true;
@@ -83,6 +89,7 @@ public class Main : Node
         _HUD.ShowGameOver();
         _Player.Die();
     }
+    #endregion
     
     #region Signals
     private void _on_GameTimer_timeout()
@@ -100,17 +107,36 @@ public class Main : Node
         GameOver();
     }
 
-    private void _on_Player_Pickup()
+    private void _on_Player_Pickup(string objType)
     {
-        Score += 1;
-        AudioStreamPlayer a = (AudioStreamPlayer) GetNode("CoinSound");
-        a.Play();
-        _HUD.UpdateScore(Score);
+        switch (objType)
+        {
+            case "Coin":
+                Score += 1;
+                AudioStreamPlayer a = (AudioStreamPlayer) GetNode("CoinSound");
+                a.Play();
+                _HUD.UpdateScore(Score);
+                break;
+            case "PowerUp":
+                Timeleft += 5;
+                AudioStreamPlayer p = (AudioStreamPlayer) GetNode("PowerUpSound");
+                p.Play();
+                _HUD.UpdateTimer(Timeleft);
+                break;
+        }
     }
     
     private void _on_HUD_StartGame()
     {
         // Replace with function body
+    }
+    
+    private void _on_PowerUpTimer_timeout()
+    {
+        var p = (PowerUp) PowerUpScene.Instance();
+        AddChild(p);
+        p.GlobalPosition = new Vector2(Rand.Next(0, Convert.ToInt32(Screensize.x)), 
+            Rand.Next(0, Convert.ToInt32(Screensize.y)));
     }
     #endregion
 }

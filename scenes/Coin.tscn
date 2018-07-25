@@ -27,7 +27,7 @@ animations = [ {
 custom_solver_bias = 0.0
 radius = 50.0482
 
-[node name="Coin" type="Area2D" groups=[
+[node name="Coin" type="Area2D" index="0" groups=[
 "coins",
 ]]
 
@@ -46,7 +46,7 @@ _sections_unfolded = [ "Transform" ]
 
 frames = SubResource( 1 )
 animation = "coin"
-frame = 6
+frame = 8
 playing = true
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
 
@@ -63,6 +63,15 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
+[node name="Timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 

@@ -95,7 +95,13 @@ public class Player : Area2D
         {
             var c = d as Coin;
             c.Pickup();
-            EmitSignal("Pickup");
+            EmitSignal("Pickup", "Coin");
+        }
+        else if (d.Name == "PowerUp")
+        {
+            var p = (PowerUp) area;
+            p.Pickup();
+            EmitSignal("Pickup", "PowerUp");
         }
 
         if (d == null || !IsInGroup("obstacles")) return;
