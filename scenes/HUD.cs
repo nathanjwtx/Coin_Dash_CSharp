@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Object = Godot.Object;
 
 public class HUD : CanvasLayer
 {
@@ -16,11 +17,20 @@ public class HUD : CanvasLayer
     {
         _scoreLabel = (Label) GetNode("Container/ScoreLabel");
         _timerLabel = (Label) GetNode("Container/TimerLabel");
-        _messageLabel = (Label) GetNode("Container/MessageLabel");
+        _messageLabel = (Label) GetNode("MessageLabel");
         _messageTimer = (Timer) _messageLabel.GetNode("MessageTimer");
         _start = (Button) GetNode("StartButton");
     }
 
+    async public void ShowGameOver()
+    {
+        ShowMessage("Game Over");
+        await ToSignal(_messageTimer, "timeout");
+        _start.Show();
+        _messageLabel.Text = "Coin Dash!";
+        _messageLabel.Show();
+    }
+    
     #region Signals
     private void _on_MessageTimer_timeout()
     {
